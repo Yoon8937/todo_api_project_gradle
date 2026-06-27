@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: todo-api
+
+  datasource:
+#    url: jdbc:postgresql://localhost:5432/todo_db
+#    username: todo_user
+#    password: todo_pass
+#    driver-class-name: org.postgresql.Driver
+    driver-class-name: ${jdbc.driver}
+    url: ${jdbc.url}
+    username: ${jdbc.username}
+    password: ${jdbc.password}
+
+
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: Asia/Seoul
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    # baselineOnMigrate: true
+    #baseline-on-migrate: true
+    #baseline-version: 0
+
+
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true

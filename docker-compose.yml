@@ -1,0 +1,63 @@
+services:
+  was:
+    build: . 
+    container_name: dk_was
+    ports: 
+      - "8080:8080"
+    
+    networks: 
+      testNetworkkk:
+        ipv4_address: 172.30.10.2
+
+     
+    #List 방식
+    # db로 작성하기 왜냐면 만약 db_db로 할 경우 container_name을 제거하면 오류가 발생하니
+    environment:
+      - jdbc.driver=${DB_DRIVER}
+      - jdbc.url=${DB_URL}
+      - jdbc.username=${DB_USERNAME} 
+      - jdbc.password=${DB_PASSWORD}
+      
+
+
+  db:
+    image: postgres:16-alpine
+    container_name: dk_db
+    volumes: 
+      - todo_db_volumeee:/var/lib/postgresql/data:rw 
+        #- ./src/main/resources/db/migration/V1__create_todos_table.sql:/docker-entrypoint-initdb.d/V1__create_todos_table.sql
+
+    networks: 
+      testNetworkkk:
+        ipv4_address: 172.30.10.3
+
+    # Map 방식
+    environment:
+      POSTGRES_DB: ${DB_DB}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+
+
+ 
+
+
+
+ #networks:
+ #testNetworkkk:
+ #external: true
+ 
+networks:
+  testNetworkkk:
+    driver: bridge
+    ipam:   
+      config: 
+        - subnet: 172.30.10.0/24
+
+
+volumes:
+  todo_db_volumeee:
+
+
+
+
+
