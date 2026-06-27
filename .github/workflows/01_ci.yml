@@ -14,7 +14,14 @@ jobs:
     runs-on: ubuntu-latest
 
 
+
+
     steps:
+      - name: Check system memory
+        run: |
+          free -h
+          cat /proc/meminfo | head
+
       - name: Checkout repository code
         uses: actions/checkout@v4
 
