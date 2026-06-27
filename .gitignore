@@ -5,3 +5,4 @@ target/
 *.class
 *.jar
 *.log
+!gradle/wrapper/gradle-wrapper.jar
